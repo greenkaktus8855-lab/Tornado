@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080d16">
+  <title>TORNADO — Global Severe Weather Monitor</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">◉</span><span>TORNADO<small>GLOBAL WEATHER MONITOR</small></span></a>
+    <div class="top-status"><span class="live-dot"></span><span id="connection">CONNECTING TO DATA</span><span class="divider"></span><span id="updated">--:-- UTC</span></div>
+    <button class="icon-btn" id="refresh" title="Refresh data" aria-label="Refresh data">↻</button>
+  </header>
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="section-heading">MONITORING</div>
+      <button class="nav-item active" data-layer="all"><span>⌖</span> Global overview <b id="allCount">—</b></button>
+      <button class="nav-item" data-layer="alerts"><span>⚠</span> Official alerts <b id="alertCount">—</b></button>
+      <button class="nav-item" data-layer="storms"><span>⛈</span> Storm conditions</button>
+      <div class="side-divider"></div>
+      <div class="section-heading">MAP LAYERS</div>
+      <label class="toggle-row"><span>Official warning areas</span><input id="warningsToggle" type="checkbox" checked><i></i></label>
+      <label class="toggle-row"><span>Wind field</span><input id="windToggle" type="checkbox"><i></i></label>
+      <label class="toggle-row"><span>Storm potential</span><input id="capeToggle" type="checkbox"><i></i></label>
+      <div class="side-divider"></div>
+      <div class="section-heading">SEVERITY GUIDE</div>
+      <div class="legend"><span class="legend-dot red"></span><span>Confirmed tornado warning</span></div>
+      <div class="legend"><span class="legend-dot orange"></span><span>Severe thunderstorm warning</span></div>
+      <div class="legend"><span class="legend-dot yellow"></span><span>Other active alert</span></div>
+      <div class="legend"><span class="legend-dot cyan"></span><span>Elevated storm ingredients</span></div>
+      <div class="side-note">A weather alert is not proof that a tornado has been observed. Always follow local emergency services.</div>
+      <div class="source-block"><div class="section-heading">DATA SOURCES</div><p>NOAA / US National Weather Service</p><p>Open-Meteo forecast API</p><p>OpenStreetMap</p></div>
+    </aside>
+    <section class="map-shell">
+      <div class="map-toolbar">
+        <div><span class="eyebrow">LIVE SITUATION</span><h1>Global map</h1></div>
+        <div class="map-actions"><button id="worldBtn">WORLD VIEW</button><button id="locateBtn">MY AREA</button></div>
+      </div>
+      <div id="map" role="application" aria-label="Global severe weather map"></div>
+      <div class="map-attribution">Map © OpenStreetMap contributors · Weather data © respective providers</div>
+      <div class="map-key"><span><i class="key-red"></i> Tornado warning</span><span><i class="key-orange"></i> Severe storm</span><span><i class="key-cyan"></i> Storm ingredients</span></div>
+    </section>
+    <aside class="details">
+      <div class="panel-head"><div><span class="eyebrow">CURRENT CONDITIONS</span><h2>Situation desk</h2></div><span class="live-pill">LIVE</span></div>
+      <div class="metric-grid">
+        <div class="metric"><span>ACTIVE US ALERTS</span><strong id="metricAlerts">—</strong></div>
+        <div class="metric"><span>TORNADO WARNINGS</span><strong id="metricTornado" class="red-text">—</strong></div>
+        <div class="metric"><span>GLOBAL WIND</span><strong>LIVE</strong></div>
+        <div class="metric"><span>DATA REFRESH</span><strong>5 MIN</strong></div>
+      </div>
+      <div class="panel-section"><div class="section-title">ACTIVE OFFICIAL ALERTS <span id="alertLabel">0</span></div><div id="alertList" class="alert-list"><div class="empty">Loading official alerts…</div></div></div>
+      <div class="panel-section selected-panel"><div class="section-title">MAP SELECTION</div><div id="selection"><div class="empty">Select a location or alert on the map.</div></div></div>
+      <div class="panel-section"><div class="section-title">HOW TO READ THIS MAP</div><p class="explain">Red areas indicate an official tornado warning issued by the US National Weather Service. Storm-potential shading is a model-based indicator of atmospheric instability, not a tornado forecast.</p></div>
+      <footer>TORNADO MONITOR · NOT AN EMERGENCY SERVICE<br>In an emergency, contact your local authorities.</footer>
+    </aside>
+  </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
